@@ -1,9 +1,9 @@
 <?php
 /** @var TwoFactor $twoFactor */
-require_once __DIR__ . '/../Utils/Uuid.php';
-require_once __DIR__ . '/../Utils/JWT.php';
-require_once __DIR__ . '/../Utils/TwoFactor.php';
-require_once __DIR__ . '/../Utils/Logs.php';
+require_once __DIR__ . '/../utils/Uuid.php';
+require_once __DIR__ . '/../utils/JWT.php';
+require_once __DIR__ . '/../utils/TwoFactor.php';
+require_once __DIR__ . '/../utils/Logs.php';
 
 use Firebase\JWT\JWT;
 
@@ -182,8 +182,8 @@ class AuthController {
             return;
         }
 
-        // Importamos la utilidad que creaste/crearás en src/Utils/TwoFactor.php
-        require_once __DIR__ . '/../Utils/TwoFactor.php';
+        // Importamos la utilidad que creaste/crearás en src/utils/TwoFactor.php
+        require_once __DIR__ . '/../utils/TwoFactor.php';
 
         // Validamos el código con el secreto guardado en la DB
         if (TwoFactor::verifyCode($user['2fa_secreto'], $data['code'])) {
