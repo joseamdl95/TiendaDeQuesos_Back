@@ -1,22 +1,19 @@
 FROM php:8.2-apache
 
-# Habilitar mod_rewrite (necesario para el enrutamiento de index.php)
+# Habilitar mod_rewrite
 RUN a2enmod rewrite
 
-# Copiar todo el código al contenedor
-COPY . /var/www/html/
+# Configurar DocumentRoot a la carpeta public
+RUN sed -ri 's!/var/www/html!/var/www/html/public!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri 's!/var/www/html!/var/www/html/public!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
-# Configurar Apache para usar public/ como directorio raíz
-RUN mv /var/www/html/public /var/www/html/public_temp \
-    && rm -rf /var/www/html/* \
-    && mv /var/www/html/public_temp/* /var/www/html/ \
-    && rm -rf /var/www/html/public_temp
+# Copiar el código
+COPY . /var/www/html
 
-# Configurar .htaccess manualmente (por si acaso)
-RUN echo "RewriteEngine On\nRewriteCond %{REQUEST_FILENAME} !-f\nRewriteCond %{REQUEST_FILENAME} !-d\nRewriteRule ^ index.php [QSA,L]" > /var/www/html/.htaccess
-
-# Instalar extensión PDO MySQL (necesaria para la conexión a BD)
+# Instalar extensión PDO MySQL
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Puerto que usará Render
+# Configurar .htaccess por si acaso
+RUN echo "RewriteEngine On\nRewriteCond %{REQUEST_FILENAME} !-f\nRewriteCond %{REQUEST_FILENAME} !-d\nRewriteRule ^ index.php [QSA,L]" > /var/www/html/public/.htaccess
+
 EXPOSE 80
