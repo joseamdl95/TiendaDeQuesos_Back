@@ -22,7 +22,7 @@ class AuthController {
         $email = $data['email'];
         $nombre = $data['nombre'];
         $apellidos = $data['apellidos'];
-        $telefono = $data['telefono'] ?? null;
+        $telefono = trim($data['telefono'] ?? '') ?: null;
 
         $passwordHash = password_hash($data['password'], PASSWORD_BCRYPT);
 
