@@ -175,7 +175,7 @@ if (preg_match('#^/products/([a-zA-Z0-9\-]+)$#', $uri, $matches) && $method === 
 }
 
 //Añadir Producto
-if ($uri === '/admin/products' && $method === 'Post') {
+if ($uri === '/admin/products' && $method === 'POST') {
     ProductController::create($pdo);
     exit;
 }
