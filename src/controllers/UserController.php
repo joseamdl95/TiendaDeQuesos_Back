@@ -24,7 +24,7 @@ class UserController {
             );
 
             // Parámetros limpios para el QR
-            $issuer = "InAltera";
+            $issuer = "TiendaDeQuesos";
             $userLabel = "Usuario"; 
             
             // Construimos el string otpauth
