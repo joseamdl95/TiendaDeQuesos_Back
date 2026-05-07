@@ -264,7 +264,7 @@ class AuthController {
         ]);
 
         // 🔥 MOCK → simulamos email
-        $resetLink = "http://localhost:5173/reset-password?token=$token";
+        $resetLink = "https://tienda-de-quesos-front.vercel.app/reset-password?token=$token";
 
         crearLog(
             $pdo,
